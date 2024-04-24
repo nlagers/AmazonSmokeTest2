@@ -1,0 +1,42 @@
+package com.testcases;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.Test;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class LocalTestExecution {
+	
+	public static RemoteWebDriver driver;
+	
+	@Test
+	
+	public void LaunchBrowser() throws MalformedURLException
+	{
+		WebDriverManager.chromedriver().setup();
+		
+		String url = "http://10.0.0.53:4444/wd/hub";
+		
+		ChromeOptions options = new ChromeOptions();
+		
+		options.addArguments("--remote-allow-origins=*");
+		
+		Map<String,Object> cloudOption = new HashMap();
+		
+		cloudOption.put("build", "Smoke Test");
+		cloudOption.put("name","Chrome Smoke Test");
+		
+		options.setCapability("cloud-options", cloudOption);
+		
+		driver = new RemoteWebDriver(new URL(url), options);
+		driver.get("https://amazon.com/");
+		driver.manage().window().maximize();
+	}
+
+}

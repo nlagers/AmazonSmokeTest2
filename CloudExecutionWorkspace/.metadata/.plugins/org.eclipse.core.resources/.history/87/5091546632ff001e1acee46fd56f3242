@@ -1,0 +1,9 @@
+package com.testcases;
+
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+public class LocalTestExecution {
+	
+	public static RemoteWebDriver driver;
+
+}
